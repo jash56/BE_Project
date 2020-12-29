@@ -1,0 +1,49 @@
+{% extends 'base_logged_out.html' %}
+{% load static %}
+
+{% block content %}   
+<div class='row justify-content-sm-center mt-5'>
+    <div class='col-5'>
+        <form class='container rounded' action="register" method="post">
+            {% csrf_token %}
+            <H4 class='row justify-content-sm-center'><b>Register Here</b></H4><hr>
+            <br>
+            <div>
+                {% for message in messages %}
+                    <div class="alert alert-danger" role="alert"> {{message}} </div>
+                {% endfor %}
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="first_name"><b>First Name</b></label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="first_name" placeholder="First Name" required>
+            </div>
+            <div class="form-group">
+                <label for="last_name"><b>Last Name</b></label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="last_name" placeholder="Last Name" required>
+            </div>
+            <div class="form-group">
+                <label for="email"><b>Email</b></label>
+                <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="email" required>
+            </div>
+            <div class="form-group">
+                <label for="username"><b>Username</b></label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="username" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <label for="password1"><b>Password</b></label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="password1" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+                <label for="password2"><b>Confirm Password</b></label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="password2" placeholder="Confirm Password" required>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-dark btn-sm">Let's Negotiate!</button>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
+
+

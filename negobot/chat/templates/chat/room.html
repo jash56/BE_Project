@@ -1,0 +1,104 @@
+{% extends 'base_logged_in.html' %}
+{% load static %}
+
+{% block content %}
+<div class='container p-2'>
+    <div class="form-group">
+        <div  id='chat-log'></div>
+    </div>
+    <br>
+    <div class="form-group">
+        <input type="text" class="form-control" id="chat-message-input" placeholder="Enter Message" required>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-dark btn-sm" id="chat-message-submit" value="Send">Send Message <i class="fas fa-paper-plane"></i></button>
+    </div>
+    {{ room_id|json_script:"room-id" }}
+    {{ username|json_script:"user-name" }}
+</div>
+
+<script src='{% static "reconnecting-websocket.js" %}'></script>
+<script>
+    const roomId = JSON.parse(document.getElementById('room-id').textContent);
+
+    const chatSocket = new ReconnectingWebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/chat/'
+        + roomId
+        + '/'
+    );
+
+    chatSocket.onopen = function(e) {
+        console.log(e)
+        chatSocket.send(JSON.stringify({
+            'command': 'fetch_messages',
+            'room_id': roomId,
+        }));
+    };
+
+
+    chatSocket.onmessage = function(e) {
+        console.log(e)
+        const data = JSON.parse(e.data);
+
+        if (data['command'] === 'old_messages'){
+            for (let i=0; i<data['messages'].length; i++) {
+                createMessage(data['messages'][i]);
+            }
+        }
+        else if (data['command'] === 'new_message'){
+            createMessage(data['message']);
+        }
+    };
+
+    function createMessage(message){
+        const userName = JSON.parse(document.getElementById('user-name').textContent);
+        // create the msg and add styles
+        var div_wrap=document.createElement("DIV");
+        var div=document.createElement('DIV');
+        div.classList.add('msg_box')
+        var div_msg=document.createElement("DIV");
+        div_msg.classList.add('msg');
+        var div_meta=document.createElement("DIV");
+        div_meta.classList.add('meta');
+        div_meta.innerText=message.author+" | "+message.timestamp
+        div_msg.innerText=message.content;
+        div.appendChild(div_msg)
+        div.appendChild(div_meta)
+        div_wrap.appendChild(div)
+        
+        if(userName===message.author){
+            div_wrap.classList.add('your_msg')
+        }else{
+            div_wrap.classList.add('other_msg')
+        }
+        
+        document.querySelector('#chat-log').appendChild(div_wrap)
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    document.querySelector('#chat-message-input').focus();
+    document.querySelector('#chat-message-input').onkeyup = function(e) {
+        if (e.keyCode === 13) {  // enter, return
+            document.querySelector('#chat-message-submit').click();
+        }
+    };
+
+    document.querySelector('#chat-message-submit').onclick = function(e) {
+        const userName = JSON.parse(document.getElementById('user-name').textContent);
+        const messageInputDom = document.querySelector('#chat-message-input');
+        const message = messageInputDom.value;
+        chatSocket.send(JSON.stringify({
+            'room_id': roomId,
+            'from' : userName,
+            'message': message,
+            'command': 'new_message'
+        }));
+        messageInputDom.value = '';
+    };
+</script>
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% extends 'base_logged_in.html' %}
+{% load static %}
+
+{% block content %}
+
+<p>{{ account.first_name }}</p> 
+<p>{{ account.last_name }}</p> 
+<p>{{ account.email }}</p>
+<p>{{ account.username }}</p>
+
+<a href='#' class="btn btn-primary btn-sm">Edit profile</a>
+<a href='#' class="btn btn-primary btn-sm">Update password</a>
+
+{% endblock content %}

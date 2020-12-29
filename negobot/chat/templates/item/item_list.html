@@ -1,0 +1,28 @@
+{% extends 'base_logged_in.html' %}
+{% load static %}
+
+{% block content %}
+{{text}}
+{% if add_item %}
+<a href="/chat/newItem" class="btn btn-primary">Add new item to sell!</a>
+{% endif %}
+<div class="container py-5">
+<div class="row">
+{% for item in object_list %}
+    <div class="col-4">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{{item.image}}" alt="{{item.category}}">
+            <div class="card-body">
+                <h5 class="card-title">{{item.name}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Listing Price - {{item.listing_price}}</h6>
+                <a href="item/{{item.id}}" class="btn btn-primary">View Item Details</a>
+            </div>
+        </div>
+    </div>
+{% empty %}
+    <li>No items yet.</li>
+{% endfor %}
+</div>
+</div>
+
+{% endblock content %}

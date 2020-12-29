@@ -1,0 +1,82 @@
+#background_image {
+    background: url('/static/images/bot.png') no-repeat center center fixed;
+    display: table;
+    height: 80%;
+    position: relative;
+    width: 100%;
+    background-size: cover;
+  }
+
+  .navbar {
+    font-weight: 700;
+    font-size: 0.5rem;
+    letter-spacing: .1rem;
+    background: rgb(255, 255, 255, 0.5) !important;
+    padding: .2rem;
+  }
+  
+  .nav {
+    padding-right: 20px;
+    color: black !important;
+    font-size: 1.5em !important;
+  }
+  
+  .nav:hover {
+    color: #6e6e6e !important;
+    font-size: 2em !important;
+  }
+
+  .form-control:valid {
+    background-color:  #ffffff!important;
+  }
+
+  label{
+    color: #000000;
+  }
+
+  /* chat room styles */
+  #chat-log{
+    background-color: white;
+    padding:1rem;
+    
+    height: 24rem;
+    box-shadow: 1px 2px 16px #bdbebf;
+    border-radius: 8px;
+    overflow-y: scroll;
+  }
+.msg_box{
+  margin:0.5rem;
+  border-radius: 7.5px;
+  padding: 7px;
+  max-width: max-content;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 2px 2px 1px #eae6e6;
+  margin:0.5rem;
+}
+.other_msg{
+  margin-right:10rem;
+}
+
+.other_msg .msg_box{
+  
+  background-color: #C8EBFF;
+}
+
+.your_msg{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: start;
+    margin-left:10rem;
+}
+
+
+.meta{
+  font-size: x-small;
+  color:gray;
+  display: flex;
+  flex-direction: row-reverse;
+}
+.msg{
+  margin-bottom: 1rem;
+}

@@ -1,0 +1,33 @@
+{% extends 'base_logged_in.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>{{ object.title }}</h1> 
+<p>{{ object.description }}</p> 
+<p>{{ object.listing_price }}</p>
+<p>{{ object.name }}</p>
+<img src="{{BASE_DIR}}/{{object.image}}" alt="Item image">
+<p>{{ object.seller }}</p><hr><b>
+
+{% if object.seller.username == username %}
+    <a href='/chat/deleteItem/{{object.id}}' class="btn btn-danger btn-sm">Delete item</a>
+    <a href='/chat/updateItem/{{object.id}}' class="btn btn-primary btn-sm">Update item details</a>
+{% elif object.seller.username != username %}
+    <button type="submit" class="btn btn-dark btn-sm" id="room-id-submit">Buy item</button>
+{% else %}
+    You are not logged in!
+{% endif %}
+
+{{ object.id|json_script:"item-id" }}
+{{ username|json_script:"buyer-id" }}
+
+<script>
+    document.querySelector('#room-id-submit').onclick = function(e) {
+        var itemId = JSON.parse(document.getElementById('item-id').textContent);
+        var buyerId = JSON.parse(document.getElementById('buyer-id').textContent);
+        var roomId = itemId + buyerId;
+        window.location.pathname = '/chat/' + roomId + '/';
+    };
+</script>
+{% endblock content %}
