@@ -64,7 +64,7 @@ def account_details(request):
 
     username = request.session.get('username')
     account = User.objects.get(username=username)
-    return render(request, 'account_details.html', {'account': account, 'username': username})
+    return render(request, 'account/account_details.html', {'account': account, 'username': username})
 
 def room(request, room_id):
     
