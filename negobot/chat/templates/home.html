@@ -4,30 +4,3 @@
 {% block content %}
 Write the platform description here!
 {% endblock content %}
-
-<div class='container p-5'>
-    <div class="form-group">
-        <a href="itemList"><b>Would you like to buy something today?</b></a>
-    </div>
-        <h4>Your on sale product list</h4>
-    </div>
-    
-    <div class="container py-5">
-        <div class="row">
-        {% for item in object_list %}
-            <div class="col-4">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{{item.image}}" alt="{{item.category}}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{item.name}}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Listing Price - {{item.listing_price}}</h6>
-                        <a href="item/{{item.id}}" class="btn btn-primary">My item details</a>
-                    </div>
-                </div>
-            </div>
-        {% empty %}
-            <li>No items yet.</li>
-        {% endfor %}
-        </div>
-    </div>
-    

@@ -5,23 +5,16 @@ User = get_user_model()
 
 class Item(models.Model):
 
-    bike = 'bi'
-    car = 'ca'
-    electronic = 'el'
-    furniture = 'fu'
-    housing = 'ho'
-    phone = 'ph'
-
     category_list = [
-        (bike, 'BIKE'),
-        (car, 'CAR'),
-        (electronic, 'ELECTRONIC'),
-        (furniture, 'FURNITURE'),
-        (housing, 'HOUSING'),
-        (phone, 'PHONE'),   
+        ('BIKE', 'BIKE'),
+        ('CAR', 'CAR'),
+        ('ELECTRONIC', 'ELECTRONIC'),
+        ('FURNITURE', 'FURNITURE'),
+        ('HOUSING', 'HOUSING'),
+        ('PHONE', 'PHONE'),   
     ]
 
-    category = models.CharField(max_length=2, choices=category_list, default='bike')
+    category = models.CharField(max_length=20, choices=category_list, default='bike')
     description = models.TextField(max_length=1000)
     image = models.ImageField(upload_to='item_image')
     listing_price = models.IntegerField()
@@ -43,3 +36,8 @@ class Message(models.Model):
         messages = Message.objects.filter(room_id=room_id).order_by('-timestamp')[:10]
         if messages:
             return messages
+
+class TargetPrice(models.Model):
+
+    target_price = models.IntegerField()
+    room_id = models.CharField(max_length=100)

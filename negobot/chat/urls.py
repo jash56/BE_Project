@@ -6,7 +6,8 @@ urlpatterns = [
     path('logout', general.logout, name='logout'),
     path('login', general.login, name='login'),
     path('register', general.register, name='register'),
-    
+    path('home', general.home, name='home'),
+
     path('myAccount', general.account_details, name='my-account'),
 
     path('<str:room_id>/', general.room, name='room'),

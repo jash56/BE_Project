@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
 
+from ..models import Item, Message, TargetPrice
+
 def index(request):
 
     return render(request, 'index.html', {})
@@ -10,6 +12,10 @@ def logout(request):
 
     auth.logout(request)
     return redirect('/chat')
+
+def home(request):
+
+    return render(request, 'home.html', {'username':request.session.get('username')})
 
 def login(request):
 
@@ -67,9 +73,31 @@ def account_details(request):
     return render(request, 'account/account_details.html', {'account': account, 'username': username})
 
 def room(request, room_id):
-    
+
+    if request.method == 'POST':
+        target_price = request.POST['target']
+        try:
+            target = TargetPrice.objects.get(room_id=room_id)
+            target.target_price = target_price
+            target.save()
+        except:
+            target = TargetPrice(target_price=target_price, room_id=room_id)
+            target.save()
+
+    a = list()
+    for i in room_id:
+        try:
+            a.append(int(i))
+        except:
+            break
+    b = ''.join([str(elem) for elem in a])
+    a = int(b)
+    item = Item.objects.get(id=a)
     return render(request, 'chat/room.html', {
+        'item': item,
         'room_id': room_id,
         'username': request.session.get('username'),
     })
+
+
 

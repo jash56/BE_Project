@@ -2,6 +2,19 @@
 {% load static %}
 
 {% block content %}
+<h1>{{ item.category }}</h1>
+<p>{{ item.listing_price }}</p>
+<p>{{ item.name }}</p>
+{% if item.seller.username != username %}
+    <form class="form-inline" action = '/chat/{{room_id}}/' method = "POST" >
+        {% csrf_token %}
+        <div class="form-group mx-sm-3 mb-2">
+            <label>Enter target buying price</label>
+            <input type="number" class="form-control" placeholder="Amount" name="target"></input>
+        </div>
+        <button type="submit" class="btn btn-dark btn-sm">Confirm price</button>
+    </form>
+{% endif %}
 <div class='container p-2'>
     <div class="form-group">
         <div  id='chat-log'></div>
@@ -19,6 +32,7 @@
 
 <script src='{% static "reconnecting-websocket.js" %}'></script>
 <script>
+
     const roomId = JSON.parse(document.getElementById('room-id').textContent);
 
     const chatSocket = new ReconnectingWebSocket(
