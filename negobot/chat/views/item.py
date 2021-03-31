@@ -4,7 +4,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
-from ..models import Item
+from ..models import Item, Message
 from ..forms import ItemForm
 
 class ItemCreateView(CreateView):
@@ -107,3 +107,23 @@ def item_delete(request, pk):
 
     Item.objects.get(id=pk).delete()
     return redirect('my-item-list')
+
+def buyer_list(request, pk):
+
+    item = Item.objects.get(id=pk)
+    username = request.session.get('username')
+    messages = Message.objects.all()
+    pk = str(pk)
+    pk_length = len(pk)
+    buyers = list()
+    for message in messages:
+
+        room = message.room_id
+        item_id = room[:pk_length]
+        buyer_id = room[pk_length:]
+    
+        if pk == item_id:
+            if len(buyer_id) > 0:
+                buyers.append(buyer_id)
+
+    return render(request, 'item/item_buyer_list.html', {'buyers': set(buyers), 'username': username, 'item': item,})

@@ -1,0 +1,23 @@
+{% extends 'base/base_logged_in.html' %}
+{% load static %}
+{% block content %}
+
+<h1>{{ item.title }}</h1> 
+<p>{{ item.description }}</p> 
+<p>{{ item.listing_price }}</p>
+<p>{{ item.name }}</p>
+<img src="{{BASE_DIR}}/{{item.image}}" alt="Item image">
+<p>{{ item.seller }}</p><hr><b>
+
+{% if item.seller.username == username %}
+    <a href='/chat/deleteItem/{{item.id}}' class="btn btn-danger btn-sm">Delete item</a>
+    <a href='/chat/updateItem/{{item.id}}' class="btn btn-primary btn-sm">Update item details</a><br><br>
+    Buyer List:
+    {% for buyer in buyers %}
+        <a href='/chat/{{item.id}}{{buyer}}' class="btn btn-dark btn-sm" id="buyer-id">{{buyer}}</a>
+    {% endfor %}
+{% else %}
+    You are not logged in!
+{% endif %}
+
+{% endblock content %}

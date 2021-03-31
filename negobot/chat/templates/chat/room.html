@@ -43,7 +43,7 @@
         const data = JSON.parse(e.data);
 
         if (data['command'] === 'old_messages'){
-            for (let i=0; i<data['messages'].length; i++) {
+            for (let i=data['messages'].length-1; i>=0; i--) {
                 createMessage(data['messages'][i]);
             }
         }

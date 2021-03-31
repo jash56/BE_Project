@@ -19,3 +19,7 @@ install docker
 sudo docker run -p 6379:6379 -d redis:5
 
 python manage.py runserver
+
+sudo docker container ls
+
+sudo docker rm -f ef184bb93c64

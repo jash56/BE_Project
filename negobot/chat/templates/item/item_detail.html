@@ -13,6 +13,7 @@
 {% if object.seller.username == username %}
     <a href='/chat/deleteItem/{{object.id}}' class="btn btn-danger btn-sm">Delete item</a>
     <a href='/chat/updateItem/{{object.id}}' class="btn btn-primary btn-sm">Update item details</a>
+    <a href='/chat/listBuyers/{{object.id}}' class="btn btn-primary btn-sm">Buyer List</a>
 {% elif object.seller.username != username %}
     <button type="submit" class="btn btn-dark btn-sm" id="room-id-submit">Buy item</button>
 {% else %}
