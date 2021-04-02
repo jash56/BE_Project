@@ -4,6 +4,8 @@ from django.contrib.auth.models import User, auth
 
 from ..models import Item, Message, TargetPrice
 
+from mlmodel import predict
+
 def index(request):
 
     return render(request, 'index.html', {})
@@ -74,7 +76,7 @@ def account_details(request):
 
 def room(request, room_id):
 
-    if request.method == 'POST':
+    if request.method == 'POST' and 'target_price' in request.POST:
         target_price = request.POST['target']
         try:
             target = TargetPrice.objects.get(room_id=room_id)
@@ -93,7 +95,18 @@ def room(request, room_id):
     b = ''.join([str(elem) for elem in a])
     a = int(b)
     item = Item.objects.get(id=a)
+
+    prediction = ''
+    if request.method == 'POST' and 'outcome' in request.POST:
+        category = item.category
+        buyer_target = TargetPrice.objects.get(room_id=room_id).target_price
+        seller_target = item.listing_price
+        message_list = Message.objects.filter(room_id=room_id)
+        messages =  ' '.join([str(message.content) for message in message_list])
+        prediction = predict(category, buyer_target, seller_target, messages)
+
     return render(request, 'chat/room.html', {
+        'prediction': prediction,
         'item': item,
         'room_id': room_id,
         'username': request.session.get('username'),
