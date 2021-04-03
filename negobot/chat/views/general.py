@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, auth
 
 from ..models import Item, Message, TargetPrice
 
-from mlmodel import predict
+from mlmodel import predict, pricing
 
 def index(request):
 
@@ -32,7 +32,7 @@ def login(request):
             request.session['username'] = username
             return render(request, 'home.html', {'username': username})
         else:
-            messages.info(request, 'invalid credentials')
+            messages.info(request, 'Invalid credentials')
             return redirect('index')
 
     else:
@@ -62,7 +62,7 @@ def register(request):
                 return redirect('index')
 
         else:
-            messages.info(request,'password not matching..')    
+            messages.info(request,'Password not matching..')    
             return redirect('register')
         
     else:
@@ -97,15 +97,22 @@ def room(request, room_id):
     item = Item.objects.get(id=a)
 
     prediction = ''
+    price = ''
     if request.method == 'POST' and 'outcome' in request.POST:
-        category = item.category
-        buyer_target = TargetPrice.objects.get(room_id=room_id).target_price
-        seller_target = item.listing_price
         message_list = Message.objects.filter(room_id=room_id)
         messages =  ' '.join([str(message.content) for message in message_list])
-        prediction = predict(category, buyer_target, seller_target, messages)
+        prediction = predict(messages)
+
+    elif request.method == 'POST' and 'price' in request.POST:
+        try:
+            buyer_target = TargetPrice.objects.get(room_id=room_id).target_price
+        except:
+            buyer_target = 0
+        seller_target = item.listing_price
+        price = str(pricing(buyer_target, seller_target))
 
     return render(request, 'chat/room.html', {
+        'price': price,
         'prediction': prediction,
         'item': item,
         'room_id': room_id,

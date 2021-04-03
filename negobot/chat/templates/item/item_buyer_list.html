@@ -1,23 +1,37 @@
 {% extends 'base/base_logged_in.html' %}
 {% load static %}
+
 {% block content %}
 
-<h1>{{ item.title }}</h1> 
-<p>{{ item.description }}</p> 
-<p>{{ item.listing_price }}</p>
-<p>{{ item.name }}</p>
-<img src="{{BASE_DIR}}/{{item.image}}" alt="Item image">
-<p>{{ item.seller }}</p><hr><b>
+<div class="container" style="display: flex; justify-content: center;">
+    <div class="card mb-3" style="width: 540px; margin-top: 3rem;">
+        <div class="row no-gutters">
+          <div class="col-md-4 d-flex justify-content-center align-items-center">
+            <img src="{{BASE_DIR}}/{{item.image}}" alt="Item image">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h4 class="card-title"><strong>{{ item.name }}</strong></h4>
+              <p class="card-text mb-1" style="color:#5f939a; font-size: 120%">Category: {{ item.category.lower }}</p>
+              <p class="card-text mb-1" style="color:#5f939a; font-size: 120%">Description: {{ item.description }}</p>
+              <p class="card-text mb-1" style="color:#5f939a; font-size: 120%">Seller Listing Price: <i class="fas fa-rupee-sign"></i>  {{ item.listing_price }}</p>
+              <p class="card-text mb-3" style="color:#5f939a; font-size: 120%">Seller Username: {{ item.seller }}</p>
+              {% if item.seller.username == username %}
+              <a href='/chat/updateItem/{{item.id}}' class="btn btnclr-blue">Update</a>
+              <a href='/chat/deleteItem/{{item.id}}' class="btn btnclr-red">Delete</a>
+                    <hr><p class="card-text mb-1" style="color:#5f939a; font-size: 120%">Interested Buyers:</p>
+                    {% for buyer in buyers %}
+                        <a href='/chat/{{item.id}}{{buyer}}' class="btn btnclr" id="buyer-id">{{buyer}}</a>
+                    {% endfor %}
+                {% elif item.seller.username != username %}
+                    <button type="submit" class="btn btn-dark btn-sm" id="room-id-submit">Buy item</button>
+                {% else %}
+                    You are not logged in!
+                {% endif %}
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
 
-{% if item.seller.username == username %}
-    <a href='/chat/deleteItem/{{item.id}}' class="btn btn-danger btn-sm">Delete item</a>
-    <a href='/chat/updateItem/{{item.id}}' class="btn btn-primary btn-sm">Update item details</a><br><br>
-    Buyer List:
-    {% for buyer in buyers %}
-        <a href='/chat/{{item.id}}{{buyer}}' class="btn btn-dark btn-sm" id="buyer-id">{{buyer}}</a>
-    {% endfor %}
-{% else %}
-    You are not logged in!
-{% endif %}
-
-{% endblock content %}
+{% endblock %}  }

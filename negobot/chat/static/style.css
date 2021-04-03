@@ -1,29 +1,36 @@
-#background_image {
-    background: url('/static/images/bot.png') no-repeat center center fixed;
-    display: table;
-    height: 80%;
-    position: relative;
-    width: 100%;
-    background-size: cover;
-  }
+body {
+   background-color:#f4f9f9;
+   font-family: 'Montserrat', sans-serif;
+}
 
-  .navbar {
+.navbar-brand{
+  font-weight: 700;
+  font-size: 2rem;
+  color: white !important;
+  display: flex;
+  align-items: center;
+}
+
+.navbar {
     font-weight: 700;
-    font-size: 0.5rem;
+    font-size: 0.8rem;
     letter-spacing: .1rem;
-    background: rgb(255, 255, 255, 0.5) !important;
-    padding: .2rem;
+    background-color: #5f939a !important;
+    padding: 1rem;
+    box-shadow: 1px 2px 16px #bdbebf;
+    border-bottom: 0;
+    margin-bottom: 1rem;
   }
   
   .nav {
     padding-right: 20px;
-    color: black !important;
+    color: white !important;
     font-size: 1.5em !important;
   }
   
   .nav:hover {
-    color: #6e6e6e !important;
-    font-size: 2em !important;
+    color: #cccccc !important;
+    text-decoration: none !important;
   }
 
   .form-control:valid {
@@ -47,12 +54,13 @@
 .msg_box{
   margin:0.5rem;
   border-radius: 7.5px;
-  padding: 7px;
+  padding: 7px 20px 4px 7px;
   max-width: max-content;
   display: flex;
   flex-direction: column;
   box-shadow: 2px 2px 2px 1px #eae6e6;
   margin:0.5rem;
+  font-size: 120%;
 }
 .other_msg{
   margin-right:10rem;
@@ -60,7 +68,8 @@
 
 .other_msg .msg_box{
   
-  background-color: #C8EBFF;
+  background-color: #5f939a;
+  color:rgb(255, 255, 255);
 }
 
 .your_msg{
@@ -70,13 +79,96 @@
     margin-left:10rem;
 }
 
+.your_msg .msg_box{
+  border: 0.1px solid lightgray; 
+}
+
+.other_msg .meta{
+  color: wheat;
+}
 
 .meta{
-  font-size: x-small;
+  font-size: small;
   color:gray;
   display: flex;
   flex-direction: row-reverse;
 }
 .msg{
   margin-bottom: 1rem;
+}
+
+.btnclr{
+  background-color: lightsalmon;
+  color: white;
+  font-weight: bold;
+}
+
+.btnclr-blue{
+  background-color: #5f939a;
+  color: white;
+  font-weight: bold;
+}
+
+.btnclr-red{
+  background-color: #BD3922;
+  color: white;
+  font-weight: bold;
+}
+
+/* Footer */
+.social a{
+  font-size: 2em;
+  padding: 2rem;
+}
+
+.fa-facebook{
+  color: #5b92ff;  
+}
+
+.fa-linkedin{
+  color: #3992ff;
+}
+
+.fa-instagram{
+  color: #ff6cc7;
+}
+
+.fa-github{
+  color: rgb(255, 255, 255);
+}
+
+.fa-facebook:hover,
+.fa-twitter:hover,
+.fa-linkedin:hover,
+.fa-instagram:hover,
+.fa-github:hover{
+  opacity: 0.5;
+}
+
+footer{
+  width: 100%;
+  bottom: 0;
+  position: fixed;
+  color: rgb(255, 255, 255);
+  padding-top: 2rem;
+  margin-bottom: 0;
+  background-color: #414A4C;
+}
+
+.licard::after{
+  content:'';
+  width:7px;
+  background-color:#E37D05;
+  height:100%;
+  position: absolute;
+  right: 0;
+  border-top-right-radius:8px;
+  border-bottom-right-radius:8px;
+}
+
+.licard{
+  border-radius: 8px;
+  border: 1px solid white;
+  border-right: 0;
+  box-shadow: 1px 2px 3px #aaaaaa;
 }

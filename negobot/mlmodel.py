@@ -5,7 +5,7 @@ from nltk.corpus import stopwords
 import numpy as np
 
 
-def predict(category, buyer_target, seller_target, messages):
+def predict(messages):
 
     stop = stopwords.words('english')
     message_list = ' '.join([word for word in messages.split() if word not in stop])
@@ -19,7 +19,9 @@ def predict(category, buyer_target, seller_target, messages):
     else:
         return 'This negotiation is on track to being a success'
 
+def pricing(buyer_target, seller_target):
 
+    return 10000
 
 """ import pickle
 import nltk

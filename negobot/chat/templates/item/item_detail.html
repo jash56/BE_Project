@@ -3,22 +3,33 @@
 
 {% block content %}
 
-<h1>{{ object.category }}</h1> 
-<p>{{ object.description }}</p> 
-<p>{{ object.listing_price }}</p>
-<p>{{ object.name }}</p>
-<img src="{{BASE_DIR}}/{{object.image}}" alt="Item image">
-<p>{{ object.seller }}</p><hr><b>
-
-{% if object.seller.username == username %}
-    <a href='/chat/deleteItem/{{object.id}}' class="btn btn-danger btn-sm">Delete item</a>
-    <a href='/chat/updateItem/{{object.id}}' class="btn btn-primary btn-sm">Update item details</a>
-    <a href='/chat/listBuyers/{{object.id}}' class="btn btn-primary btn-sm">Buyer List</a>
-{% elif object.seller.username != username %}
-    <button type="submit" class="btn btn-dark btn-sm" id="room-id-submit">Buy item</button>
-{% else %}
-    You are not logged in!
-{% endif %}
+<div class="container" style="display: flex; justify-content: center;">
+    <div class="card mb-3" style="width: 700px; margin-top: 3rem;">
+        <div class="row no-gutters">
+          <div class="col-md-4 d-flex justify-content-center align-items-center">
+            <img src="{{BASE_DIR}}/{{object.image}}" alt="Item image">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h4 class="card-title"><strong>{{ object.name }}</strong></h4>
+              <p class="card-text mb-1" style="color:#5f939a; font-size: 120%">Category: {{ item.category.lower }}</p>
+              <p class="card-text mb-1" style="color:#5f939a; font-size: 120%">Description: {{ item.description }}</p>
+              <p class="card-text mb-1" style="color:#5f939a; font-size: 120%">Seller Listing Price: <i class="fas fa-rupee-sign"></i>  {{ item.listing_price }}</p>
+              <p class="card-text mb-3" style="color:#5f939a; font-size: 120%">Seller Username: {{ item.seller }}</p>
+              {% if object.seller.username == username %}
+                    <a href='/chat/listBuyers/{{object.id}}' class="btn btnclr mr-2">Interested Buyers</a>
+                    <a href='/chat/updateItem/{{object.id}}' class="btn btnclr-blue mr-2">Update</a>
+                    <a href='/chat/deleteItem/{{object.id}}' class="btn btnclr-red">Delete</a>
+                {% elif object.seller.username != username %}
+                    <button type="submit" class="btn btnclr" id="room-id-submit">Buy item</button>
+                {% else %}
+                    You are not logged in!
+                {% endif %}
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
 
 {{ object.id|json_script:"item-id" }}
 {{ username|json_script:"buyer-id" }}

@@ -3,9 +3,21 @@
 
 {% block content %}
 
-<p>{{ account.first_name }}</p> 
-<p>{{ account.last_name }}</p> 
-<p>{{ account.email }}</p>
-<p>{{ account.username }}</p>
+<div class="container" style="display: flex; justify-content: center;">
+    <div class="card mb-3" style="width: 540px; margin-top: 3rem;">
+        <div class="row no-gutters">
+          <div class="col-md-4 d-flex justify-content-center align-items-center">
+            <i class="far fa-user" aria-hidden="true" style="font-size: 5rem"></i>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h4 class="card-title"><strong>Username: {{ account.username }}</strong></h4>
+              <p class="card-text" style="color:#5f939a; font-size: 120%"><i class="far fa-envelope"></i>  {{ account.email }}</p>
+              <p class="card-text" style="color:#5f939a; font-size: 120%">{{ account.first_name }} {{ account.last_name }}</p>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}

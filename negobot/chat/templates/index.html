@@ -9,7 +9,7 @@
             <H4 class='row justify-content-sm-center'><b>Welcome Back!</b></H4><hr>
             <br>
             {% for message in messages %}
-            <div class="alert alert-danger" role="alert"> {{message}} </div>
+            <div class="alert alert-info" role="alert"> {{message}} </div>
             {% endfor %}
             <div class="form-group">
             <label for="username"><b>Username</b></label>
@@ -19,7 +19,8 @@
             <label for="password"><b>Password</b></label>
             <input type="password" class="form-control" name="password" placeholder="Enter Password" required>
             </div><br>
-            <button type="submit" class="btn btn-dark btn-sm">Login</button><a href="/chat/register">New user? Register here!</a>
+            <button type="submit" class="btn btnclr">Login</button><br><br>
+            <a href="/chat/register" style="color: #414A4C; font-weight: bold;">New user? Register here!</a>
         </form>
     </div>
 </div>

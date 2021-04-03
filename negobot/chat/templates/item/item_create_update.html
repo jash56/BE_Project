@@ -2,10 +2,14 @@
 {% load static %}
 
 {% block content %}
-
-<form method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save">
-</form>
+<div class='row justify-content-sm-center mt-5'>
+    <div class='col-5'>
+        <form method="post">
+            {% csrf_token %}
+            <strong>{{ form.as_p }}</strong>
+            <input type="submit" value="Save" class="btn btnclr">
+        </form>
+    </div>
+</div>
 
 {% endblock content %}
