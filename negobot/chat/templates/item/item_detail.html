@@ -2,16 +2,15 @@
 {% load static %}
 
 {% block content %}
-
 <div class="container" style="display: flex; justify-content: center;">
     <div class="card mb-3" style="width: 700px; margin-top: 3rem;">
         <div class="row no-gutters">
           <div class="col-md-4 d-flex justify-content-center align-items-center">
-            <img src="{{BASE_DIR}}/{{object.image}}" alt="Item image">
+            <img src="{{item.image.url}}" alt="{{item.category}}" style="width: 300px; height: 300px;">
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h4 class="card-title"><strong>{{ object.name }}</strong></h4>
+              <h4 class="card-title"><strong>{{ item.name }}</strong></h4>
               <p class="card-text mb-1" style="color:#5f939a; font-size: 120%">Category: {{ item.category.lower }}</p>
               <p class="card-text mb-1" style="color:#5f939a; font-size: 120%">Description: {{ item.description }}</p>
               <p class="card-text mb-1" style="color:#5f939a; font-size: 120%">Seller Listing Price: <i class="fas fa-rupee-sign"></i>  {{ item.listing_price }}</p>

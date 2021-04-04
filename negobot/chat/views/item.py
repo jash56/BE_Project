@@ -13,7 +13,7 @@ class ItemCreateView(CreateView):
     form_class = ItemForm
 
     def post(self, request, *args, **kwargs):
-        form = ItemForm(request.POST)
+        form = ItemForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             item = form.save(commit=False)
             seller = self.request.session.get('username')
@@ -88,7 +88,7 @@ class ItemUpdateView(UpdateView):
     form_class = ItemForm
 
     def post(self, request, *args, **kwargs):
-        form = ItemForm(request.POST)
+        form = ItemForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             item = form.save(commit=False)
             item.id = self.kwargs['pk']

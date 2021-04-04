@@ -4,10 +4,10 @@
 {% block content %}
 
 <div class="container" style="display: flex; justify-content: center;">
-    <div class="card mb-3" style="width: 540px; margin-top: 3rem;">
+    <div class="card mb-3" style="width: 700px; margin-top: 3rem;">
         <div class="row no-gutters">
           <div class="col-md-4 d-flex justify-content-center align-items-center">
-            <img src="{{BASE_DIR}}/{{item.image}}" alt="Item image">
+            <img class="ml-2" src="{{item.image.url}}" alt="{{item.category}}" style="width: 300px; height: 300px;">
           </div>
           <div class="col-md-8">
             <div class="card-body">

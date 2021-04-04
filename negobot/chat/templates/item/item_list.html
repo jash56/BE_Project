@@ -16,9 +16,9 @@
 <div class="container py-5">
 <div class="row">
 {% for item in object_list %}
-    <div class="col-4 mb-4 mt-4">
-        <div class="card licard" style="width: 90%;">
-            <img class="card-img-top" src="https://pixabay.com/photos/oldtimer-car-old-car-convertible-1197800/" alt="{{item.category}}">
+    <div class="col-md-4 mb-4 mt-4">
+        <div class="card licard">
+            <img class="card-img-top" src="{{item.image.url}}" alt="{{item.category}}" style="height:250px; max-width:340px">
             <div class="card-body">
                 <h4 class="card-title"><strong>{{item.name}}</strong> <small>({{item.category.lower}})</small></h4>
                 <h6 class="card-subtitle mb-2 text-muted" style="font-size: 120%"><strong>Seller Listing Price</strong>:   <i class="fas fa-rupee-sign"></i>   {{item.listing_price}}</h6>
@@ -28,7 +28,7 @@
     </div>
 {% empty %}
     <div class="d-flex justify-content-center ">
-        <h5><bold>Please list a product</bold></h5> to continue.</bold></h5>
+        <h5><bold>Please list a product to continue.</bold></h5>
     </div>
 {% endfor %}
 </div>
