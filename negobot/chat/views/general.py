@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, auth
 
 from ..models import Item, Message, TargetPrice
 
-from mlmodel import predict, pricing
+from mlmodel import get_reccomendation
 
 def index(request):
 
@@ -76,16 +76,7 @@ def account_details(request):
 
 def room(request, room_id):
 
-    if request.method == 'POST' and 'target_price' in request.POST:
-        target_price = request.POST['target']
-        try:
-            target = TargetPrice.objects.get(room_id=room_id)
-            target.target_price = target_price
-            target.save()
-        except:
-            target = TargetPrice(target_price=target_price, room_id=room_id)
-            target.save()
-
+    reccomendation = "Click the 'Get reccomendation' button!"
     a = list()
     for i in room_id:
         try:
@@ -95,25 +86,29 @@ def room(request, room_id):
     b = ''.join([str(elem) for elem in a])
     a = int(b)
     item = Item.objects.get(id=a)
+    try:
+        buyer_target = TargetPrice.objects.get(room_id=room_id).target_price
+    except:
+        buyer_target = 0
 
-    prediction = ''
-    price = ''
-    if request.method == 'POST' and 'outcome' in request.POST:
-        message_list = Message.objects.filter(room_id=room_id)
-        messages =  ' '.join([str(message.content) for message in message_list])
-        prediction = predict(messages)
-
-    elif request.method == 'POST' and 'price' in request.POST:
+    if request.method == 'POST' and 'target_price' in request.POST:
+        target_price = request.POST['target']
         try:
-            buyer_target = TargetPrice.objects.get(room_id=room_id).target_price
+            target = TargetPrice.objects.get(room_id=room_id)
+            target.target_price = target_price
+            target.save()
         except:
-            buyer_target = 0
+            target = TargetPrice(target_price=target_price, room_id=room_id)
+            target.save()
+    elif request.method == 'POST' and 'reccomendation' in request.POST:
+        message_list = Message.objects.filter(room_id=room_id)
+        messages =  ' '.join([str(message.content) for message in message_list])        
         seller_target = item.listing_price
-        price = str(pricing(buyer_target, seller_target))
+        reccomendation = get_reccomendation(messages, buyer_target, seller_target)
 
     return render(request, 'chat/room.html', {
-        'price': price,
-        'prediction': prediction,
+        'buyer_target': buyer_target,
+        'reccomendation': reccomendation,
         'item': item,
         'room_id': room_id,
         'username': request.session.get('username'),

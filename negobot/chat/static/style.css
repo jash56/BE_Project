@@ -41,6 +41,10 @@ body {
     color: #000000;
   }
 
+  .ml-20{
+    margin-left: 20rem;
+  }
+
   /* chat room styles */
   #chat-log{
     background-color: white;
@@ -121,19 +125,10 @@ body {
   padding: 2rem;
 }
 
-.fa-facebook{
-  color: #5b92ff;  
-}
-
-.fa-linkedin{
-  color: #3992ff;
-}
-
+.fa-github,
+.fa-facebook,
+.fa-linkedin,
 .fa-instagram{
-  color: #ff6cc7;
-}
-
-.fa-github{
   color: rgb(255, 255, 255);
 }
 
@@ -147,11 +142,10 @@ body {
 
 footer{
   width: 100%;
-  bottom: 0;
-  position: fixed;
   color: rgb(255, 255, 255);
+  margin-top: 20rem;
   padding-top: 2rem;
-  margin-bottom: 0;
+  margin-bottom: 0px;
   background-color: #414A4C;
 }
 

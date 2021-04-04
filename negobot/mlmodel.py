@@ -15,13 +15,13 @@ def predict(messages):
     model = pickle.load(open('outcome.sav','rb'))
     output = model.predict(encoded_feature_list)
     if output[0] == '0':
-        return 'This negotiation will most likely fail'
+        return 'This negotiation will most likely fail :('
     else:
-        return 'This negotiation is on track to being a success'
+        return 'This negotiation is on track to being a success :)'
 
-def pricing(buyer_target, seller_target):
+def get_reccomendation(messages, buyer_target, seller_target):
 
-    return 10000
+    return predict(messages)
 
 """ import pickle
 import nltk

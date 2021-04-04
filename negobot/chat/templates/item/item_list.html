@@ -2,33 +2,33 @@
 {% load static %}
 
 {% block content %}
-<div class="container jumbotron mt-5">  
+<div class="container jumbotron mt-5 mb-0">  
     <!-- JUMBOTRON -->
     <div class="row justify-content-md-center">
         <h4 class="text-center"><strong>{{text}}</strong></h4>
     </div>
     {% if add_item %}
         <div class="row justify-content-md-center">
-            <a href="/chat/newItem" class="btn btn-lg btnclr mr-4 mt-4 text-center">Add new item to sell!</a>
+            <a href="/chat/newItem" class="btn btn-lg btnclr mr-4 mt-4 text-center">Add new product to sell!</a>
         </div>
     {% endif %}
 </div>
 <div class="container py-5">
 <div class="row">
 {% for item in object_list %}
-    <div class="col-4">
+    <div class="col-4 mb-4 mt-4">
         <div class="card licard" style="width: 90%;">
             <img class="card-img-top" src="https://pixabay.com/photos/oldtimer-car-old-car-convertible-1197800/" alt="{{item.category}}">
             <div class="card-body">
                 <h4 class="card-title"><strong>{{item.name}}</strong> <small>({{item.category.lower}})</small></h4>
                 <h6 class="card-subtitle mb-2 text-muted" style="font-size: 120%"><strong>Seller Listing Price</strong>:   <i class="fas fa-rupee-sign"></i>   {{item.listing_price}}</h6>
-                <a href="item/{{item.id}}" class="btn btnclr-blue mt-3 p-2">View Item Details</a>
+                <a href="item/{{item.id}}" class="btn btnclr-blue mt-3 p-2">View Product Details</a>
             </div>
         </div>
     </div>
 {% empty %}
     <div class="d-flex justify-content-center ">
-        <h5><bold>Please list items to continue using the site.</bold></h5>
+        <h5><bold>Please list a product</bold></h5> to continue.</bold></h5>
     </div>
 {% endfor %}
 </div>
