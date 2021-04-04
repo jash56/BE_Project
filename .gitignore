@@ -1,6 +1,7 @@
 negobot/chat/__pycache__
 negobot/chat/migrations
 negobot/chat/views/__pycache__
+negobot/__pycache__
 
 venv
 
