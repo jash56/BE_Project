@@ -1,13 +1,3 @@
-negobot/chat/__pycache__
-negobot/chat/migrations
-negobot/chat/views/__pycache__
-negobot/__pycache__
-
 venv
-
-negobot/negobot/__pycache__
-
 *.log
 local_settings.py
-db.sqlite3
-db.sqlite3-journal
