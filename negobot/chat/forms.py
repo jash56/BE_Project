@@ -5,11 +5,10 @@ class ItemForm(forms.ModelForm):
 
 	class Meta: 
 		model = Item
-		fields = ('name', 'category', 'description', 'listing_price', 'image')
+		fields = ('name', 'category', 'description', 'listing_price')
 		labels = {
 		"name": "Name your product",
         "category": "Select a category for your product",
 		"description": "Give a description of your product",
 		"listing_price": "Enter your product's selling / listing price",
-		"image": "Upload a picture of your product"
-    }
+    	}

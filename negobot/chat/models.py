@@ -16,7 +16,7 @@ class Item(models.Model):
 
     category = models.CharField(max_length=20, choices=category_list, default='bike')
     description = models.TextField(max_length=1000)
-    image = models.ImageField(upload_to='item_image')
+    image_url = models.URLField(max_length=2033, default=None)
     listing_price = models.IntegerField()
     name = models.CharField(max_length=100)
     seller = models.ForeignKey(User, on_delete=models.CASCADE)

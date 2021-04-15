@@ -7,6 +7,23 @@ from django.shortcuts import render, redirect
 from ..models import Item, Message
 from ..forms import ItemForm
 
+import pyrebase
+import os
+
+config = {
+    "apiKey": "AIzaSyDj9DPTgoKXN1mc6yn6oLvuVif1GGcV1RA",
+    "authDomain": "negobot-dca88.firebaseapp.com",
+    "projectId": "negobot-dca88",
+    "storageBucket": "negobot-dca88.appspot.com",
+    "messagingSenderId": "309578681717",
+    "appId": "1:309578681717:web:4c6aeabd4bb571a28d573c",
+    "measurementId": "G-4DV29PEF44",
+    "databaseURL": ""
+}
+
+firebase = pyrebase.initialize_app(config)
+storage = firebase.storage()
+
 class ItemCreateView(CreateView):
     model = Item
     template_name = 'item/item_create_update.html'
@@ -18,6 +35,10 @@ class ItemCreateView(CreateView):
             item = form.save(commit=False)
             seller = self.request.session.get('username')
             item.seller = User.objects.get(username=seller)
+            item.image_url = ''
+            item.save()
+            storage.child(seller + '/' + str(item.id)).put(request.FILES['image'])
+            item.image_url = storage.child(seller + '/' + str(item.id)).get_url(None)
             item.save()
             return redirect('my-item-list')
         return render(request, 'item/item_create_update.html', {'form': form})
@@ -79,6 +100,8 @@ class ItemDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['username'] = self.request.session.get('username')
+        if self.request.method == "GET":
+            context['image_url'] =  storage.child(context['username'] + '/' + str(self.kwargs['pk'])).get_url(None)
         return context
 
 class ItemUpdateView(UpdateView):
@@ -94,18 +117,29 @@ class ItemUpdateView(UpdateView):
             item.id = self.kwargs['pk']
             seller = self.request.session.get('username')
             item.seller = User.objects.get(username=seller)
+            image = request.FILES.get('image', False)
+            if image is False:
+                item.image_url = Item.objects.get(id = self.kwargs['pk']).image_url
+            else:
+                storage.child(seller + '/' + str(item.id)).put(image)
+                item.image_url = storage.child(seller + '/' + str(item.id)).get_url(None)
             item.save()
             return redirect('my-item-list')
         return render(request, 'item/item_create_update.html', {'form': form})
 
     def get_context_data(self, **kwargs):
+        item_id = self.kwargs['pk']
         context = super().get_context_data(**kwargs)
         context['username'] = self.request.session.get('username')
+        if self.request.method == "GET":
+            context['image_url'] =  storage.child(context['username'] + '/' + str(item_id)).get_url(None)
         return context
 
 def item_delete(request, pk):
 
-    Item.objects.get(id=pk).delete()
+    item = Item.objects.get(id=pk)
+    #storage.refFromUrl(item.image_url).delete()
+    item.delete()
     return redirect('my-item-list')
 
 def buyer_list(request, pk):
