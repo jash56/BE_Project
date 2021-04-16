@@ -1,1 +1,1 @@
-web: gunicorn negobot.wsgi
+web: gunicorn negobot.negobot.wsgi
