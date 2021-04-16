@@ -25,7 +25,7 @@ SECRET_KEY = '-8f8o3(f4(!q0t03v*p2fbm61@%1#j&suzkx6m2&7^!3hm52q0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'negobot.herokuapp.com']
 
 
 # Application definition
